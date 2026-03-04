@@ -1,172 +1,91 @@
 body {
-    background-color: #0d0d0d;
-    color: #e0e0e0;
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    margin: 0;
-    line-height: 1.8;
-    overflow-x: hidden;
-}
-.video-background {
-    position: fixed;
-    top: 0; left: 0; width: 100vw; height: 100vh;
-    overflow: hidden;
-    z-index: -1;
-}
-.background-video {
-    min-width: 100vw; min-height: 100vh;
-    width: auto; height: auto;
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    object-fit: cover;
-}
-.overlay {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.7); z-index: 0;
-}
-header {
-    background: none;
-    text-align: center;
-    padding: 100px 20px 60px 20px;
-    border-bottom: 5px solid #8b0000;
-    position: relative;
-    z-index: 1;
-}
-.logo {
-    font-size: 1.2rem;
-    letter-spacing: 5px;
-    color: #8b0000;
-    font-weight: bold;
-}
-/* 大迫力・映画風タイトル */
-.hero-title {
-    font-family: 'Oswald', 'Bebas Neue', Impact, Arial, sans-serif;
-    font-size: 3.2rem;
-    color: #fff;
-    text-shadow: 
-        0 0 18px #ff1d2c,
-        0 0 80px #fd4444,
-        2px 4px 0 #111,
-        0 0 8px #ff4488;
-    letter-spacing: .11em;
-    margin: 32px 0 15px 0;
-    animation: hero-pop 1.2s cubic-bezier(.19,2,.18,1.14);
-}
-@keyframes hero-pop {
-    0% {
-        opacity: 0; transform: scale(0.8) translateY(40px);
-        letter-spacing: 0.35em; text-shadow: none;
-    }
-    45% {
-        opacity: 1; transform: scale(1.02) translateY(-15px);
-        letter-spacing: .21em;
-    }
-    100% {
-        opacity: 1; transform: scale(1) translateY(0);
-        letter-spacing: .11em;
-    }
+  background: #18181b;
+  color: #fff;
+  font-family: 'Oswald', 'Bebas Neue', 'Consolas', 'Menlo', 'monospace', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.tagline {
-    font-style: italic;
-    color: #ccc;
+/* 全体を中央寄せ */
+.ascii-message-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
 }
 
-main { max-width: 900px; margin: 40px auto; padding: 0 20px; z-index: 1; position: relative; }
-h2, .form-title { 
-    border-left: 5px solid #ff0000; 
-    padding-left: 15px; 
-    color: #ff0000; 
-    text-transform: uppercase;
-    font-family: 'Bebas Neue', 'Oswald', Impact, Arial, sans-serif;
-    letter-spacing: 0.14em;
-    font-size: 2.1rem;
-    margin-top: 40px;
+/* アスキー枠 */
+.ascii-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 370px;
+  max-width: 98vw;
+  font-size: 1.08em;
+  font-family: inherit;
+  margin: 32px 0;
+  /* 光らせ用 */
+  transition: filter 0.35s cubic-bezier(.22,.68,.54,1.09);
+  background: none;
 }
-section { margin-bottom: 50px; }
-
-/* キャラカード */
-.char-list { display: flex; gap: 32px; flex-wrap: wrap; justify-content: center; }
-.char-item {
-    background: rgba(30,0,0,0.4);
-    border: 2.5px solid #ff5252;
-    border-radius: 14px;
-    box-shadow: 0 4px 32px #20000099;
-    padding: 1.5rem 1.2rem 1.3rem 1.2rem;
-    transition: transform 0.3s cubic-bezier(.2,1.5,.5,1), box-shadow 0.3s, border 0.3s;
-    min-width: 200px; cursor: pointer;
+.ascii-border {
+  margin: 0; padding: 0; background: none; border: none;
+  color: #fff; letter-spacing: 1px;
+  user-select: none;
 }
-.char-item:hover {
-    transform: translateY(-18px) scale(1.045) rotate(-1deg);
-    box-shadow: 0 10px 40px #ff000033, 0 2px 30px #ff1744;
-    border-color: #fff;
-    background: rgba(70,0,10,0.73);
+.ascii-border-top, .ascii-border-bottom {
+  text-align: left; width: 100%;
+  font-family: inherit;
 }
 
-/* ----- 最強に光る入力ボックス！！ ----- */
-.message-area {
-    margin: 80px auto 100px auto;
-    max-width: 380px;
-    text-align: center;
+/* 入力行本体 */
+.ascii-border-middle {
+  display: flex; flex-direction: row; align-items: center; width: 100%;
+  background: none; border: none; padding: 0 0.1em;
 }
-.fancy-input-wrap {
-    background: rgba(18, 0, 0, 0.95);
-    border: 2.5px solid #b1102c;
-    border-radius: 16px;
-    padding: 18px 22px;
-    margin: 0 auto 10px auto;
-    box-shadow: 0 0 0 #ff003c;
-    transition: border 0.18s, box-shadow 0.22s;
-    width: 100%;
-    max-width: 330px;
-    position: relative;
+.ascii-border-side {
+  color: #fff; font-weight: bold; font-size: 1.08em; margin: 0 2px;
+  transition: color .25s;
 }
-.fancy-input {
-    background: transparent;
-    border: none;
-    outline: none;
-    color: #fff; font-size: 1.24rem;
-    width: 92%;
-    padding: 7px 5px;
-    letter-spacing: 0.1em;
-    caret-color: #ff003c;
-    font-family: 'Oswald', 'Bebas Neue', Arial, sans-serif;
-}
-.fancy-input::placeholder {
-    color: #fa8ff0;
-    font-style: italic;
-    letter-spacing: 0.07em;
-}
-.fancy-input-wrap:focus-within,
-.fancy-input-wrap:hover {
-    border-color: #fff;
-    box-shadow:
-        0 0 21px 7px #ff1244,
-        0 0 30px 13px #00fff9bb,
-        0 0 60px 18px #fb29ff33;
-    animation: shine-border 0.6s linear;
-}
-@keyframes shine-border {
-    0% {
-        box-shadow:
-        0 0 0 #ff1244,
-        0 0 0 #00fff9bb,
-        0 0 0 #fb29ff33;
-    }
-    100% {
-        box-shadow:
-        0 0 21px 7px #ff1244,
-        0 0 30px 13px #00fff9bb,
-        0 0 60px 18px #fb29ff33;
-    }
+.ascii-input {
+  background: none;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-family: inherit;
+  font-size: 1.09em;
+  width: 87%;
+  padding: 6px 0;
+  letter-spacing: 0.08em;
+  /* 光らせエフェクト用 */
+  box-shadow: none;
+  transition: box-shadow 0.4s cubic-bezier(.22,.68,.54,1.09), color .27s;
+  text-align: left;
 }
 
-footer {
-    text-align: center;
-    padding: 38px 0 30px 0;
-    background: #000;
-    font-size: 0.8rem;
-    color: #777;
-    position: relative;
-    z-index: 1;
+/* アスキー枠&入力の光るアニメ */
+.ascii-box:focus-within, .ascii-box:hover {
+  filter: drop-shadow(0 0 16px #fff) drop-shadow(0 0 36px #ff22c0) drop-shadow(0 0 46px #03fbd5);
+}
+.ascii-box:focus-within .ascii-input,
+.ascii-box:hover .ascii-input {
+  color: #ff22c0;
+  box-shadow: 0 0 12px 2px #fff, 0 0 32px 4px #ff22c0, 0 0 64px 8px #03fbd5;
+}
+.ascii-box:focus-within .ascii-border-side,
+.ascii-box:hover .ascii-border-side {
+  color: #ff22c0;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 500px) {
+  .ascii-box {
+    width: 97vw;
+    font-size: 0.97em;
+  }
 }
