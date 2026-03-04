@@ -1,88 +1,183 @@
-/* 入力エリア全体 */
+body {
+    background-color: #0d0d0d;
+    color: #e0e0e0;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    margin: 0;
+    line-height: 1.8;
+    overflow-x: hidden;
+}
+
+/* ---- 動画背景 ---- */
+.video-background {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    overflow: hidden;
+    z-index: -1;
+}
+.background-video {
+    min-width: 100vw; min-height: 100vh;
+    width: auto; height: auto;
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+}
+.overlay {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.7); z-index: 0;
+}
+
+/* ---- ヘッダー・ロゴ ---- */
+header {
+    background: none;
+    text-align: center;
+    padding: 100px 20px 60px 20px;
+    border-bottom: 5px solid #8b0000;
+    position: relative;
+    z-index: 1;
+}
+.logo {
+    font-size: 1.2rem;
+    letter-spacing: 5px;
+    color: #8b0000;
+    font-weight: bold;
+}
+h1 {
+    font-size: 3rem;
+    color: #ff0000;
+    text-shadow: 2px 2px 10px #000;
+    margin: 10px 0;
+}
+.tagline {
+    font-style: italic;
+    color: #ccc;
+}
+
+/* ---- フェードイン ---- */
+.fade-in-text {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+.fade-in-text.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ---- メイン ---- */
+main { max-width: 900px; margin: 40px auto; padding: 0 20px; z-index: 1; position: relative; }
+h2 { border-left: 5px solid #ff0000; padding-left: 15px; color: #ff0000; text-transform: uppercase; }
+section { margin-bottom: 50px; }
+
+/* キャラカード演出 */
+.char-list { display: flex; gap: 32px; flex-wrap: wrap; justify-content: center; }
+.char-item {
+    background: rgba(30,0,0,0.4);
+    border: 2.5px solid #ff5252;
+    border-radius: 14px;
+    box-shadow: 0 4px 32px #20000099;
+    padding: 1.5rem 1.2rem 1.3rem 1.2rem;
+    transition: transform 0.3s cubic-bezier(.2,1.5,.5,1), box-shadow 0.3s, border 0.3s;
+    min-width: 200px;
+    cursor: pointer;
+}
+.char-item:hover {
+    transform: translateY(-18px) scale(1.045) rotate(-1deg);
+    box-shadow: 0 10px 40px #ff000033, 0 2px 30px #ff1744;
+    border-color: #fff;
+    background: rgba(70,0,10,0.73);
+}
+
+/* ---- かっこいいPV風 タイトル&入力 ---- */
 .message-area {
-  margin: 60px auto 80px auto;
-  max-width: 450px;
-  text-align: center;
+    margin: 80px auto 100px auto;
+    max-width: 480px;
+    text-align: center;
 }
-
-/* PV風タイトル（1文字ずつアニメ対応） */
+/* PVタイトル本体 */
 .pv-title {
-  font-size: 2.2rem;
-  color: #ff003c;
-  margin-bottom: 16px;
-  letter-spacing: 0.2em;
-  filter: drop-shadow(0 0 10px #ff003c88);
-  font-family: 'Bebas Neue', 'Oswald', Impact, 'Helvetica Neue', Arial, sans-serif;
-  line-height: 1.1;
-  overflow: visible;
-  position: relative;
+    font-size: 2.3rem;
+    color: #ff003c;
+    margin-bottom: 18px;
+    letter-spacing: 0.18em;
+    filter: drop-shadow(0 0 12px #ff003c99);
+    font-family: 'Bebas Neue', 'Oswald', Impact, 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.1;
+    overflow: visible;
+    position: relative;
+    user-select: none;
 }
-
 .pv-title .char {
-  display: inline-block;
-  opacity: 0;
-  transform: translateY(40px) scale(2) skewX(25deg) rotate(-10deg);
-  animation: pvanim 1.2s cubic-bezier(.2,2,.15,1.2) forwards;
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(42px) scale(2) skewX(23deg) rotate(-13deg);
+    animation: pvanim 1s cubic-bezier(.19,2,.15,1.16) forwards;
 }
-
 .pv-title .char.glitch {
-  color: #fff;
-  text-shadow: 1px 0 #00fff9, 2px 1px #ff00c8, -2px -2px #ff003c;
-  animation: pvglitch 1.7s infinite linear alternate-reverse;
+    color: #fff;
+    text-shadow: 2px 0 #00fff9, 3px 1px #ff00c8, -3px -2px #ff003c;
+    animation: pvglitch 1.4s infinite linear alternate-reverse, pvanim 1s cubic-bezier(.19,2,.15,1.16) forwards;
 }
-
 @keyframes pvanim {
-  0%   { opacity: 0; transform: translateY(40px) scale(2) skewX(25deg) rotate(-10deg);}
-  80%  { opacity: 1;}
-  100% { opacity: 1; transform: none;}
+    0%   { opacity: 0; transform: translateY(42px) scale(2) skewX(23deg) rotate(-13deg);}
+    70%  { opacity: 1;}
+    100% { opacity: 1; transform: none;}
 }
 @keyframes pvglitch {
-  10% { text-shadow: 4px 0 #ff003c, -1px 2px #00fff9;}
-  50% { text-shadow: -4px -1px #00fff9, 2px -3px #ff003c;}
+    10%  { text-shadow: 4px 0 #ff003c, -1px 2px #00fff9;}
+    53%  { text-shadow: -4px -1px #00fff9, 2px -3px #ff003c;}
 }
 
-/* 入力枠周り */
+/* 入力枠 */
 .fancy-input-wrap {
-  background: rgba(18, 0, 0, 0.75);
-  border: 2px solid #b1102c;
-  border-radius: 14px;
-  padding: 16px 18px;
-  margin: 0 auto;
-  box-shadow: 0 0 0 #ff003c;
-  transition: border 0.2s, box-shadow 0.2s;
-  width: 100%;
-  max-width: 350px;
-  position: relative;
+    background: rgba(18, 0, 0, 0.87);
+    border: 2.2px solid #b1102c;
+    border-radius: 14px;
+    padding: 15px 18px;
+    margin: 0 auto;
+    box-shadow: 0 0 0 #ff003c;
+    transition: border 0.2s, box-shadow 0.22s;
+    width: 100%;
+    max-width: 373px;
+    position: relative;
 }
 .fancy-input-wrap.focused,
 .fancy-input-wrap:hover {
-  border-color: #fff;
-  box-shadow: 0 0 16px 4px #ff003c, 0 0 24px 10px #00fff966;
+    border-color: #fff;
+    box-shadow: 0 0 14px 4px #ff003c, 0 0 22px 10px #00fff966;
 }
-
-/* 入力テキスト */
+/* 入力 */
 .fancy-input {
-  background: transparent;
-  border: none;
-  outline: none;
-  color: #fff;
-  font-size: 1.2rem;
-  width: 90%;
-  padding: 6px 5px;
-  letter-spacing: 0.1em;
-  caret-color: #ff003c;
-  font-family: 'Oswald', 'Bebas Neue', Arial, sans-serif;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #fff; font-size: 1.19rem;
+    width: 92%;
+    padding: 6px 5px;
+    letter-spacing: 0.1em;
+    caret-color: #ff003c;
+    font-family: 'Oswald', 'Bebas Neue', Arial, sans-serif;
 }
 .fancy-input::placeholder {
-  color: #cc889a;
-  font-style: italic;
-  letter-spacing: 0.07em;
+    color: #cc889a;
+    font-style: italic;
+    letter-spacing: 0.07em;
 }
 
-/* カーソル時のエフェクト強化 */
 @media (hover: hover) and (pointer: fine) {
-  .fancy-input-wrap:has(input:focus) {
-    border-color: #fff;
-    box-shadow: 0 0 16px 4px #ff003c, 0 0 24px 10px #00fff966;
-  }
+    .fancy-input-wrap:has(input:focus) {
+        border-color: #fff;
+        box-shadow: 0 0 16px 4px #ff003c, 0 0 24px 10px #00fff966;
+    }
+}
+
+/* ---- フッター ---- */
+footer {
+    text-align: center;
+    padding: 38px 0 30px 0;
+    background: #000;
+    font-size: 0.8rem;
+    color: #777;
+    position: relative;
+    z-index: 1;
 }
