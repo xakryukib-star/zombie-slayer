@@ -1,116 +1,70 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const modal = document.getElementById('trialModal');
-    const trialBtn = document.getElementById('trialBtn');
-    const closeBtn = document.getElementById('closeBtn');
-    const closeBtnFooter = document.getElementById('closeBtnFooter');
+document.addEventListener("DOMContentLoaded", () => {
+    // 1. ページ読み込み時の「上から順にフェードイン」
+    const headerElements = document.querySelectorAll('header .fade-in-text');
+    let delay = 1000; // 動画を見せるために1秒待機
 
-    // 試し読みボタンをクリック
-    trialBtn.addEventListener('click', function() {
-        modal.classList.add('show');
-        document.body.style.overflow = 'hidden';
+    headerElements.forEach((el, index) => {
+        setTimeout(() => {
+            el.classList.add('is-visible');
+        }, delay + (index * 500)); // 0.5秒間隔で表示
     });
 
-    // モーダルを閉じる（×ボタン）
-    closeBtn.addEventListener('click', function() {
-        modal.classList.remove('show');
-        document.body.style.overflow = 'auto';
-    });
+    // 2. スクロールに合わせて表示されるアニメーション
+    const observerOptions = {
+        threshold: 0.2
+    };
 
-    // モーダルを閉じる（閉じるボタン）
-    closeBtnFooter.addEventListener('click', function() {
-        modal.classList.remove('show');
-        document.body.style.overflow = 'auto';
-    });
-
-    // モーダル外をクリックしても閉じる
-    window.addEventListener('click', function(event) {
-        if (event.target === modal) {
-            modal.classList.remove('show');
-            document.body.style.overflow = 'auto';
-        }
-    });
-
-    // タッチデバイスでのホバー対応
-    const asciiBox = document.querySelector('.ascii-box');
-    const asciiInput = document.querySelector('.ascii-input');
-
-    if (asciiInput) {
-        asciiInput.addEventListener('focus', function() {
-            asciiBox.style.filter = 'drop-shadow(0 0 12px #fff) drop-shadow(0 0 24px #ff22c0) drop-shadow(0 0 36px #03fbd5)';
-        });
-
-        asciiInput.addEventListener('blur', function() {
-            asciiBox.style.filter = 'none';
-        });
-    }
-
-    // スクロールアニメーション
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.style.animation = 'fadeInUp 0.6s ease-out forwards';
+                entry.target.classList.add('is-visible');
             }
         });
-    }, { threshold: 0.1 });
+    }, observerOptions);
 
-    document.querySelectorAll('.char-item').forEach(el => observer.observe(el));
-});
+    // main内の全フェードイン要素を監視
+    document.querySelectorAll('main .fade-in-text').forEach(el => {
+        observer.observe(el);
+    });
 
-// 既存のコード...
-
-// 本編ページのエピソード管理
-document.addEventListener("DOMContentLoaded", function() {
+    // --- 本編ページ（manga.html）用の処理 ---
     const episodeSelector = document.getElementById('episodeSelect');
-    const episodes = document.querySelectorAll('.episode');
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    let currentEpisode = 1;
-
-    // エピソードセレクターでの切り替え
     if (episodeSelector) {
-        episodeSelector.addEventListener('change', function() {
-            const episodeNum = parseInt(this.value.replace('#episode', ''));
-            showEpisode(episodeNum);
-        });
-    }
+        const episodes = document.querySelectorAll('.episode');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        let currentEpisode = 1;
 
-    // 前へボタン
-    if (prevBtn) {
-        prevBtn.addEventListener('click', function() {
+        function showEpisode(num) {
+            episodes.forEach(ep => ep.style.display = 'none');
+            const target = document.getElementById(`episode${num}`);
+            if (target) target.style.display = 'block';
+            currentEpisode = num;
+            if (prevBtn) prevBtn.disabled = (num === 1);
+            if (nextBtn) nextBtn.disabled = (num === episodes.length);
+        }
+
+        episodeSelector.addEventListener('change', (e) => {
+            const num = parseInt(e.target.value.replace('#episode', ''));
+            showEpisode(num);
+        });
+
+        if (prevBtn) prevBtn.addEventListener('click', () => {
             if (currentEpisode > 1) {
                 currentEpisode--;
                 showEpisode(currentEpisode);
                 episodeSelector.value = `#episode${currentEpisode}`;
             }
         });
-    }
 
-    // 次へボタン
-    if (nextBtn) {
-        nextBtn.addEventListener('click', function() {
+        if (nextBtn) nextBtn.addEventListener('click', () => {
             if (currentEpisode < episodes.length) {
                 currentEpisode++;
                 showEpisode(currentEpisode);
                 episodeSelector.value = `#episode${currentEpisode}`;
             }
         });
-    }
 
-    // エピソード表示関数
-    function showEpisode(num) {
-        episodes.forEach(ep => ep.style.display = 'none');
-        document.getElementById(`episode${num}`).style.display = 'block';
-        
-        currentEpisode = num;
-        
-        // ボタンの有効/無効切り替え
-        if (prevBtn) prevBtn.disabled = (num === 1);
-        if (nextBtn) nextBtn.disabled = (num === episodes.length);
-        
-        // ページトップへスクロール
-        document.querySelector('.manga-content').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        showEpisode(1);
     }
-
-    // 初期表示
-    showEpisode(1);
 });
