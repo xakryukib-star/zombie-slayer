@@ -1,12 +1,18 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const elements = document.querySelectorAll('.fade-in-text');
-    
-    // 最初の要素が表示されるまでの待ち時間（1.5秒）
-    const startDelay = 1500; 
+// 1文字ずつタイトルアニメーション＋一部ランダムグリッチ
+window.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll('.pv-title').forEach($title => {
+    // テキストを1文字ずつspan(隠し+delay)に置換
+    const chars = $title.dataset.text.split('');
+    $title.innerHTML = chars.map((c, i) => {
+      const glitch = Math.random() < 0.21 ? ' glitch' : '';
+      return `<span class="char${glitch}" style="animation-delay:${i*0.05}s">${c}</span>`;
+    }).join('');
+  });
 
-    elements.forEach((el, index) => {
-        setTimeout(() => {
-            el.classList.add('is-visible');
-        }, startDelay + (index * 600)); // 各要素が0.6秒間隔で上から順番に表示
-    });
+  // 入力枠フォーカス時のエフェクト
+  document.querySelectorAll('.fancy-input-wrap').forEach(wrap => {
+    const input = wrap.querySelector('input');
+    input.addEventListener('focus', () => wrap.classList.add('focused'));
+    input.addEventListener('blur', () => wrap.classList.remove('focused'));
+  });
 });
