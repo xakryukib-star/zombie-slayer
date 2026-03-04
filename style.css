@@ -616,3 +616,331 @@ footer {
         line-height: 1.6;
     }
 }
+/* ========== 本編ページ ========== */
+.manga-page {
+    overflow-y: auto;
+}
+
+.manga-container {
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+}
+
+.manga-header {
+    text-align: center;
+    padding: 40px 20px 30px 20px;
+    margin-bottom: 30px;
+    border-bottom: 3px solid #ff1744;
+    position: relative;
+}
+
+.manga-header h1 {
+    font-family: 'Oswald', 'Bebas Neue', Impact, Arial, sans-serif;
+    font-size: 2.2rem;
+    color: #ff1744;
+    text-shadow: 0 0 15px #ff1744;
+    margin: 0 0 20px 0;
+    letter-spacing: 0.1em;
+}
+
+.manga-nav {
+    margin-top: 20px;
+}
+
+.episode-selector {
+    background: rgba(20, 10, 10, 0.8);
+    color: #fff;
+    border: 2px solid #ff1744;
+    padding: 10px 15px;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: 'Oswald', Arial, sans-serif;
+    letter-spacing: 0.05em;
+}
+
+.episode-selector:hover {
+    border-color: #03fbd5;
+    box-shadow: 0 0 15px rgba(255, 23, 68, 0.5);
+}
+
+.episode-selector option {
+    background: #0d0d0d;
+    color: #fff;
+}
+
+.manga-content {
+    background: rgba(20, 10, 10, 0.8);
+    border: 2px solid #ff1744;
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0 0 30px rgba(255, 23, 68, 0.4), inset 0 0 20px rgba(255, 23, 68, 0.1);
+    margin-bottom: 30px;
+}
+
+.episode {
+    animation: fadeInEpisode 0.5s ease-out;
+}
+
+@keyframes fadeInEpisode {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.episode-header {
+    border-bottom: 2px solid #ff1744;
+    padding-bottom: 20px;
+    margin-bottom: 25px;
+}
+
+.episode-header h2 {
+    color: #ff1744;
+    font-size: 1.8rem;
+    margin: 0;
+    letter-spacing: 0.1em;
+    text-shadow: 0 0 10px #ff1744;
+}
+
+.manga-content .content-box {
+    margin-bottom: 20px;
+}
+
+.manga-content .content-box:last-child {
+    margin-bottom: 0;
+}
+
+.manga-content .content-box h3 {
+    color: #ff1744;
+    font-size: 1.3rem;
+    margin-top: 0;
+    margin-bottom: 15px;
+    border-left: 4px solid #ff1744;
+    padding-left: 12px;
+}
+
+.manga-content .content-box p {
+    text-align: left;
+    font-size: 1rem;
+    line-height: 2;
+    margin: 0 0 15px 0;
+    color: #e0e0e0;
+}
+
+.manga-content .content-box p:last-child {
+    margin-bottom: 0;
+}
+
+.manga-footer {
+    text-align: center;
+    padding: 30px 0;
+}
+
+.nav-buttons {
+    margin-bottom: 20px;
+}
+
+.nav-btn {
+    background: linear-gradient(135deg, #ff1744 0%, #c41c3b 100%);
+    color: #fff;
+    border: 1px solid #ff5252;
+    padding: 12px 28px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 0;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.2, 1.5, 0.5, 1);
+    margin: 0 10px;
+    font-family: 'Oswald', 'Bebas Neue', Arial, sans-serif;
+    letter-spacing: 0.1em;
+}
+
+.nav-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 30px rgba(255, 23, 68, 0.8), 0 0 50px rgba(3, 251, 213, 0.3);
+    border-color: #03fbd5;
+    text-shadow: 0 0 10px rgba(3, 251, 213, 0.8);
+}
+
+.nav-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.back-home-btn {
+    display: inline-block;
+    color: #ccc;
+    text-decoration: none;
+    padding: 10px 24px;
+    border: 1px solid #ccc;
+    border-radius: 0;
+    transition: all 0.3s;
+    font-family: 'Oswald', 'Bebas Neue', Arial, sans-serif;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+}
+
+.back-home-btn:hover {
+    color: #fff;
+    border-color: #ff1744;
+    box-shadow: 0 0 20px rgba(255, 23, 68, 0.5);
+}
+
+/* ========== スマホ対応 ========== */
+@media (max-width: 768px) {
+    .manga-container {
+        padding: 15px;
+    }
+
+    .manga-header {
+        padding: 25px 15px;
+    }
+
+    .manga-header h1 {
+        font-size: 1.6rem;
+        margin-bottom: 15px;
+    }
+
+    .episode-selector {
+        width: 100%;
+        padding: 10px 12px;
+        font-size: 0.95rem;
+    }
+
+    .manga-content {
+        padding: 20px;
+        border-radius: 6px;
+    }
+
+    .episode-header {
+        padding-bottom: 15px;
+        margin-bottom: 20px;
+    }
+
+    .episode-header h2 {
+        font-size: 1.4rem;
+    }
+
+    .manga-content .content-box h3 {
+        font-size: 1.2rem;
+        margin-bottom: 12px;
+    }
+
+    .manga-content .content-box p {
+        font-size: 0.95rem;
+        line-height: 1.8;
+        margin-bottom: 12px;
+    }
+
+    .nav-btn {
+        padding: 10px 20px;
+        font-size: 0.95rem;
+        margin: 8px 5px;
+    }
+
+    .back-home-btn {
+        padding: 10px 20px;
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .manga-container {
+        padding: 10px;
+    }
+
+    .manga-header {
+        padding: 20px 10px;
+        margin-bottom: 20px;
+    }
+
+    .manga-header h1 {
+        font-size: 1.3rem;
+        margin-bottom: 12px;
+    }
+
+    .episode-selector {
+        width: 100%;
+        padding: 8px 10px;
+        font-size: 0.9rem;
+    }
+
+    .manga-content {
+        padding: 15px;
+        border-radius: 6px;
+    }
+
+    .episode-header {
+        padding-bottom: 12px;
+        margin-bottom: 15px;
+    }
+
+    .episode-header h2 {
+        font-size: 1.2rem;
+    }
+
+    .manga-content .content-box {
+        padding: 12px;
+        margin-bottom: 15px;
+    }
+
+    .manga-content .content-box h3 {
+        font-size: 1.1rem;
+        margin-bottom: 10px;
+        padding-left: 10px;
+    }
+
+    .manga-content .content-box p {
+        font-size: 0.9rem;
+        line-height: 1.7;
+        margin-bottom: 10px;
+    }
+
+    .manga-footer {
+        padding: 20px 0;
+    }
+
+    .nav-btn {
+        display: block;
+        width: 100%;
+        padding: 10px 0;
+        margin: 8px 0;
+        font-size: 0.9rem;
+    }
+
+    .back-home-btn {
+        display: block;
+        width: 100%;
+        padding: 10px 0;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 320px) {
+    .manga-header h1 {
+        font-size: 1.1rem;
+    }
+
+    .episode-header h2 {
+        font-size: 1rem;
+    }
+
+    .manga-content .content-box h3 {
+        font-size: 1rem;
+    }
+
+    .manga-content .content-box p {
+        font-size: 0.85rem;
+    }
+}
