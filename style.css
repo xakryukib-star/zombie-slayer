@@ -101,6 +101,35 @@ header {
     line-height: 1.6;
     max-width: 100%;
     padding: 0 10px;
+    margin-bottom: 30px;
+}
+
+/* 試し読みボタン */
+.trial-btn {
+    background: linear-gradient(135deg, #ff1744 0%, #ff5252 100%);
+    color: #fff;
+    border: 2px solid #fff;
+    padding: 12px 32px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    font-family: 'Oswald', 'Bebas Neue', Arial, sans-serif;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.2, 1.5, 0.5, 1);
+    letter-spacing: 0.1em;
+    box-shadow: 0 0 20px rgba(255, 23, 68, 0.5);
+    margin-top: 20px;
+}
+
+.trial-btn:hover {
+    transform: translateY(-4px) scale(1.08);
+    box-shadow: 0 0 30px rgba(255, 23, 68, 0.8), 0 0 40px rgba(3, 251, 213, 0.5);
+    border-color: #03fbd5;
+    color: #fff;
+}
+
+.trial-btn:active {
+    transform: translateY(-2px);
 }
 
 main {
@@ -255,12 +284,6 @@ p {
     color: #999;
 }
 
-.ascii-input::-webkit-outer-spin-button,
-.ascii-input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
 .ascii-box:focus-within,
 .ascii-box:hover {
     filter: drop-shadow(0 0 12px #fff) drop-shadow(0 0 24px #ff22c0) drop-shadow(0 0 36px #03fbd5);
@@ -287,6 +310,174 @@ footer {
     z-index: 1;
 }
 
+/* ========== モーダル ========== */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    animation: fadeIn 0.3s ease-out;
+    overflow-y: auto;
+}
+
+.modal.show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-content {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d1a1a 100%);
+    border: 3px solid #ff1744;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 700px;
+    max-height: 85vh;
+    overflow-y: auto;
+    box-shadow: 0 0 40px rgba(255, 23, 68, 0.6), 0 0 60px rgba(3, 251, 213, 0.3);
+    animation: slideUp 0.4s cubic-bezier(0.2, 1.5, 0.5, 1);
+    position: relative;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-close {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    background: none;
+    border: none;
+    color: #ff1744;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    z-index: 10;
+}
+
+.modal-close:hover {
+    color: #fff;
+    transform: rotate(90deg);
+}
+
+.modal-header {
+    border-bottom: 3px solid #ff1744;
+    padding: 30px 30px 20px 30px;
+    background: rgba(255, 23, 68, 0.1);
+}
+
+.modal-header h2 {
+    border: none;
+    color: #ff1744;
+    text-shadow: 0 0 10px #ff1744;
+    margin: 0 0 10px 0;
+    font-size: 2rem;
+    letter-spacing: 0.1em;
+    padding-left: 0;
+}
+
+.episode-title {
+    color: #ccc;
+    font-style: italic;
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.modal-body {
+    padding: 30px;
+    max-height: 50vh;
+    overflow-y: auto;
+}
+
+.manga-viewer h3 {
+    color: #ff1744;
+    font-size: 1.3rem;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    border-left: 4px solid #ff1744;
+    padding-left: 12px;
+}
+
+.manga-viewer h3:first-child {
+    margin-top: 0;
+}
+
+.manga-viewer p {
+    text-align: left;
+    line-height: 2;
+    margin-bottom: 15px;
+    font-size: 1rem;
+    color: #e0e0e0;
+}
+
+.modal-footer {
+    border-top: 3px solid #ff1744;
+    padding: 20px 30px;
+    text-align: center;
+    background: rgba(255, 23, 68, 0.05);
+}
+
+.trial-notice {
+    color: #ff9800;
+    font-style: italic;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #ff1744 0%, #ff5252 100%);
+    color: #fff;
+    border: 2px solid #fff;
+    padding: 12px 28px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.2, 1.5, 0.5, 1);
+    margin-right: 10px;
+    margin-bottom: 10px;
+    font-family: 'Oswald', 'Bebas Neue', Arial, sans-serif;
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 20px rgba(255, 23, 68, 0.8), 0 0 30px rgba(3, 251, 213, 0.4);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: #ccc;
+    border: 2px solid #ccc;
+    padding: 10px 24px;
+    font-size: 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: 'Oswald', 'Bebas Neue', Arial, sans-serif;
+}
+
+.btn-secondary:hover {
+    color: #fff;
+    border-color: #fff;
+}
+
 /* ========== スマホ対応 ========== */
 @media (max-width: 768px) {
     header {
@@ -307,6 +498,13 @@ footer {
     .tagline {
         font-size: 0.85rem;
         line-height: 1.5;
+        margin-bottom: 20px;
+    }
+
+    .trial-btn {
+        padding: 10px 24px;
+        font-size: 0.95rem;
+        margin-top: 15px;
     }
 
     h2 {
@@ -345,6 +543,45 @@ footer {
     .ascii-input {
         font-size: 0.9rem;
     }
+
+    .modal-content {
+        width: 95%;
+        max-height: 90vh;
+    }
+
+    .modal-header {
+        padding: 20px 20px 15px 20px;
+    }
+
+    .modal-header h2 {
+        font-size: 1.5rem;
+        margin-bottom: 8px;
+    }
+
+    .episode-title {
+        font-size: 0.95rem;
+    }
+
+    .modal-body {
+        padding: 20px;
+        max-height: 55vh;
+    }
+
+    .manga-viewer p {
+        font-size: 0.95rem;
+        line-height: 1.8;
+    }
+
+    .modal-footer {
+        padding: 15px 20px;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        padding: 10px 16px;
+        font-size: 0.9rem;
+        margin-right: 5px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -369,6 +606,13 @@ footer {
         font-size: 0.75rem;
         line-height: 1.4;
         padding: 0 5px;
+        margin-bottom: 15px;
+    }
+
+    .trial-btn {
+        padding: 8px 16px;
+        font-size: 0.8rem;
+        margin-top: 10px;
     }
 
     main {
@@ -433,24 +677,72 @@ footer {
         letter-spacing: 0.3px;
     }
 
-    .ascii-border-side {
-        font-size: 1rem;
-        margin: 0 2px;
-    }
-
     .ascii-input {
         font-size: 0.85rem;
         padding: 6px 3px;
     }
 
-    .ascii-box:focus-within,
-    .ascii-box:hover {
-        filter: drop-shadow(0 0 8px #fff) drop-shadow(0 0 16px #ff22c0) drop-shadow(0 0 24px #03fbd5);
+    .modal-content {
+        width: 98%;
+        max-height: 95vh;
+        border-radius: 8px;
     }
 
-    .ascii-box:focus-within .ascii-input,
-    .ascii-box:hover .ascii-input {
-        box-shadow: 0 0 8px 1px #fff, 0 0 16px 2px #ff22c0, 0 0 28px 4px #03fbd5;
+    .modal-header {
+        padding: 15px 15px 12px 15px;
+    }
+
+    .modal-header h2 {
+        font-size: 1.2rem;
+        margin-bottom: 6px;
+    }
+
+    .episode-title {
+        font-size: 0.85rem;
+    }
+
+    .modal-close {
+        right: 10px;
+        top: 10px;
+        font-size: 1.5rem;
+    }
+
+    .modal-body {
+        padding: 15px;
+        max-height: 60vh;
+    }
+
+    .manga-viewer h3 {
+        font-size: 1.1rem;
+        margin-top: 20px;
+        margin-bottom: 12px;
+        padding-left: 10px;
+        border-left: 3px solid #ff1744;
+    }
+
+    .manga-viewer p {
+        font-size: 0.9rem;
+        line-height: 1.7;
+        margin-bottom: 12px;
+        text-align: left;
+    }
+
+    .modal-footer {
+        padding: 12px 15px;
+    }
+
+    .trial-notice {
+        font-size: 0.8rem;
+        margin-bottom: 10px;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        display: block;
+        width: 100%;
+        padding: 10px 0;
+        margin: 8px 0;
+        font-size: 0.85rem;
     }
 
     footer {
@@ -480,8 +772,15 @@ footer {
         font-size: 0.75rem;
     }
 
-    .ascii-border {
-        font-size: 0.65rem;
-        letter-spacing: 0.2px;
+    .modal-header h2 {
+        font-size: 1rem;
+    }
+
+    .manga-viewer h3 {
+        font-size: 0.95rem;
+    }
+
+    .manga-viewer p {
+        font-size: 0.85rem;
     }
 }
