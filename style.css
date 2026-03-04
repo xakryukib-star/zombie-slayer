@@ -1,91 +1,296 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
-  background: #18181b;
-  color: #fff;
-  font-family: 'Oswald', 'Bebas Neue', 'Consolas', 'Menlo', 'monospace', Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    background-color: #0d0d0d;
+    color: #e0e0e0;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    margin: 0;
+    line-height: 1.8;
+    overflow-x: hidden;
 }
 
-/* 全体を中央寄せ */
+/* ---- 動画背景 ---- */
+.video-background {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.background-video {
+    min-width: 100vw; min-height: 100vh;
+    width: auto; height: auto;
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+}
+
+.overlay {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.7); z-index: 0;
+}
+
+/* ---- ヘッダー ---- */
+header {
+    background: none;
+    text-align: center;
+    padding: 100px 20px 60px 20px;
+    border-bottom: 5px solid #8b0000;
+    position: relative;
+    z-index: 1;
+    min-height: calc(100vh - 10px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.2rem;
+    letter-spacing: 5px;
+    color: #8b0000;
+    font-weight: bold;
+}
+
+.hero-title {
+    font-family: 'Oswald', 'Bebas Neue', Impact, Arial, sans-serif;
+    font-size: 3.2rem;
+    color: #fff;
+    text-shadow: 
+        0 0 18px #ff1d2c,
+        0 0 80px #fd4444,
+        2px 4px 0 #111,
+        0 0 8px #ff4488;
+    letter-spacing: .11em;
+    margin: 32px 0 15px 0;
+    animation: hero-pop 1.2s cubic-bezier(.19,2,.18,1.14);
+}
+
+@keyframes hero-pop {
+    0% {
+        opacity: 0; 
+        transform: scale(0.8) translateY(40px);
+        letter-spacing: 0.35em; 
+        text-shadow: none;
+    }
+    45% {
+        opacity: 1; 
+        transform: scale(1.02) translateY(-15px);
+        letter-spacing: .21em;
+    }
+    100% {
+        opacity: 1; 
+        transform: scale(1) translateY(0);
+        letter-spacing: .11em;
+    }
+}
+
+.tagline {
+    font-style: italic;
+    color: #ccc;
+}
+
+/* ---- メイン ---- */
+main {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+    z-index: 1;
+    position: relative;
+}
+
+h2 {
+    border-left: 5px solid #ff0000;
+    padding-left: 15px;
+    color: #ff0000;
+    text-transform: uppercase;
+    font-family: 'Bebas Neue', 'Oswald', Impact, Arial, sans-serif;
+    letter-spacing: 0.14em;
+    font-size: 2.1rem;
+    margin-top: 40px;
+}
+
+section {
+    margin-bottom: 50px;
+}
+
+p {
+    text-align: justify;
+}
+
+/* ---- キャラクターカード ---- */
+.char-list {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.char-item {
+    background: rgba(30,0,0,0.4);
+    border: 2.5px solid #ff5252;
+    border-radius: 14px;
+    box-shadow: 0 4px 32px #20000099;
+    padding: 1.5rem 1.2rem 1.3rem 1.2rem;
+    transition: transform 0.3s cubic-bezier(.2,1.5,.5,1), box-shadow 0.3s, border 0.3s;
+    min-width: 200px;
+    cursor: pointer;
+}
+
+.char-item:hover {
+    transform: translateY(-18px) scale(1.045) rotate(-1deg);
+    box-shadow: 0 10px 40px #ff000033, 0 2px 30px #ff1744;
+    border-color: #fff;
+    background: rgba(70,0,10,0.73);
+}
+
+/* ---- アスキー枠の光るテキストボックス ---- */
 .ascii-message-area {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 70px 0 80px 0;
 }
 
-/* アスキー枠 */
 .ascii-box {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 370px;
-  max-width: 98vw;
-  font-size: 1.08em;
-  font-family: inherit;
-  margin: 32px 0;
-  /* 光らせ用 */
-  transition: filter 0.35s cubic-bezier(.22,.68,.54,1.09);
-  background: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 370px;
+    max-width: 98vw;
+    font-size: 1.08em;
+    font-family: 'Oswald', 'Bebas Neue', 'Consolas', 'Menlo', 'monospace', Arial, sans-serif;
+    margin: 32px 0;
+    transition: filter 0.35s cubic-bezier(.22,.68,.54,1.09);
+    background: none;
 }
+
 .ascii-border {
-  margin: 0; padding: 0; background: none; border: none;
-  color: #fff; letter-spacing: 1px;
-  user-select: none;
+    margin: 0;
+    padding: 0;
+    background: none;
+    border: none;
+    color: #fff;
+    letter-spacing: 1px;
+    user-select: none;
+    font-family: inherit;
 }
+
 .ascii-border-top, .ascii-border-bottom {
-  text-align: left; width: 100%;
-  font-family: inherit;
+    text-align: left;
+    width: 100%;
 }
 
-/* 入力行本体 */
 .ascii-border-middle {
-  display: flex; flex-direction: row; align-items: center; width: 100%;
-  background: none; border: none; padding: 0 0.1em;
-}
-.ascii-border-side {
-  color: #fff; font-weight: bold; font-size: 1.08em; margin: 0 2px;
-  transition: color .25s;
-}
-.ascii-input {
-  background: none;
-  border: none;
-  outline: none;
-  color: #fff;
-  font-family: inherit;
-  font-size: 1.09em;
-  width: 87%;
-  padding: 6px 0;
-  letter-spacing: 0.08em;
-  /* 光らせエフェクト用 */
-  box-shadow: none;
-  transition: box-shadow 0.4s cubic-bezier(.22,.68,.54,1.09), color .27s;
-  text-align: left;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 0 0.1em;
 }
 
-/* アスキー枠&入力の光るアニメ */
-.ascii-box:focus-within, .ascii-box:hover {
-  filter: drop-shadow(0 0 16px #fff) drop-shadow(0 0 36px #ff22c0) drop-shadow(0 0 46px #03fbd5);
+.ascii-border-side {
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.08em;
+    margin: 0 2px;
+    transition: color .25s;
 }
+
+.ascii-input {
+    background: none;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-family: inherit;
+    font-size: 1.09em;
+    width: 87%;
+    padding: 6px 0;
+    letter-spacing: 0.08em;
+    box-shadow: none;
+    transition: box-shadow 0.4s cubic-bezier(.22,.68,.54,1.09), color .27s;
+    text-align: left;
+}
+
+.ascii-input::placeholder {
+    color: #999;
+}
+
+.ascii-box:focus-within, 
+.ascii-box:hover {
+    filter: drop-shadow(0 0 16px #fff) drop-shadow(0 0 36px #ff22c0) drop-shadow(0 0 46px #03fbd5);
+}
+
 .ascii-box:focus-within .ascii-input,
 .ascii-box:hover .ascii-input {
-  color: #ff22c0;
-  box-shadow: 0 0 12px 2px #fff, 0 0 32px 4px #ff22c0, 0 0 64px 8px #03fbd5;
-}
-.ascii-box:focus-within .ascii-border-side,
-.ascii-box:hover .ascii-border-side {
-  color: #ff22c0;
+    color: #ff22c0;
+    box-shadow: 0 0 12px 2px #fff, 0 0 32px 4px #ff22c0, 0 0 64px 8px #03fbd5;
 }
 
-/* レスポンシブ対応 */
-@media (max-width: 500px) {
-  .ascii-box {
-    width: 97vw;
-    font-size: 0.97em;
-  }
+.ascii-box:focus-within .ascii-border-side,
+.ascii-box:hover .ascii-border-side {
+    color: #ff22c0;
+}
+
+/* ---- フッター ---- */
+footer {
+    text-align: center;
+    padding: 38px 0 30px 0;
+    background: #000;
+    font-size: 0.8rem;
+    color: #777;
+    position: relative;
+    z-index: 1;
+}
+
+/* ---- レスポンシブ ---- */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2.4rem;
+    }
+    
+    h2 {
+        font-size: 1.8rem;
+    }
+    
+    .char-list {
+        gap: 20px;
+    }
+    
+    .char-item {
+        min-width: 150px;
+        padding: 1.2rem 0.9rem;
+    }
+    
+    .ascii-box {
+        width: 95vw;
+        font-size: 0.95em;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 1.8rem;
+        margin: 20px 0 10px 0;
+    }
+    
+    h2 {
+        font-size: 1.4rem;
+    }
+    
+    header {
+        min-height: auto;
+        padding: 60px 15px 40px 15px;
+    }
+    
+    main {
+        padding: 0 15px;
+    }
 }
