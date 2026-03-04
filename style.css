@@ -11,6 +11,10 @@ body {
     overflow-x: hidden;
 }
 
+body.trial-page {
+    overflow-y: auto;
+}
+
 .video-background {
     position: fixed;
     top: 0;
@@ -43,6 +47,7 @@ body {
     z-index: 0;
 }
 
+/* ========== メインページ ========== */
 header {
     background: none;
     text-align: center;
@@ -105,31 +110,52 @@ header {
 }
 
 /* 試し読みボタン */
-.trial-btn {
-    background: linear-gradient(135deg, #ff1744 0%, #ff5252 100%);
+.trial-link {
+    display: inline-block;
+    background: linear-gradient(135deg, #ff1744 0%, #c41c3b 100%);
     color: #fff;
-    border: 2px solid #fff;
-    padding: 12px 32px;
-    font-size: 1.1rem;
+    padding: 14px 40px;
+    font-size: 1.15rem;
     font-weight: bold;
     font-family: 'Oswald', 'Bebas Neue', Arial, sans-serif;
-    border-radius: 8px;
+    text-decoration: none;
+    border-radius: 0;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.2, 1.5, 0.5, 1);
-    letter-spacing: 0.1em;
-    box-shadow: 0 0 20px rgba(255, 23, 68, 0.5);
+    letter-spacing: 0.15em;
+    box-shadow: 
+        inset 0 0 10px rgba(255, 255, 255, 0.2),
+        0 0 20px rgba(255, 23, 68, 0.5),
+        0 0 40px rgba(0, 0, 0, 0.5);
     margin-top: 20px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #ff5252;
 }
 
-.trial-btn:hover {
-    transform: translateY(-4px) scale(1.08);
-    box-shadow: 0 0 30px rgba(255, 23, 68, 0.8), 0 0 40px rgba(3, 251, 213, 0.5);
+.trial-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s;
+}
+
+.trial-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 
+        inset 0 0 15px rgba(255, 255, 255, 0.3),
+        0 0 30px rgba(255, 23, 68, 0.8),
+        0 0 60px rgba(3, 251, 213, 0.4);
     border-color: #03fbd5;
-    color: #fff;
+    text-shadow: 0 0 10px rgba(3, 251, 213, 0.8);
 }
 
-.trial-btn:active {
-    transform: translateY(-2px);
+.trial-link:hover::before {
+    left: 100%;
 }
 
 main {
@@ -162,6 +188,26 @@ p {
     line-height: 1.8;
 }
 
+/* 枠スタイル */
+.content-box {
+    background: rgba(30, 0, 0, 0.3);
+    border: 2px solid #ff5252;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 15px 0;
+    box-shadow: 0 4px 15px rgba(32, 0, 0, 0.5), inset 0 0 10px rgba(255, 23, 68, 0.1);
+    transition: all 0.3s ease;
+}
+
+.content-box:hover {
+    border-color: #ff1744;
+    box-shadow: 0 6px 25px rgba(255, 23, 68, 0.3), inset 0 0 15px rgba(255, 23, 68, 0.2);
+}
+
+.content-box p {
+    margin: 0;
+}
+
 .char-list {
     display: flex;
     gap: 20px;
@@ -171,133 +217,23 @@ p {
 }
 
 .char-item {
-    background: rgba(30, 0, 0, 0.4);
-    border: 2px solid #ff5252;
-    border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(32, 0, 0, 0.6);
-    padding: 1.2rem 1rem;
-    transition: transform 0.3s cubic-bezier(0.2, 1.5, 0.5, 1), box-shadow 0.3s, border 0.3s;
-    min-width: 160px;
     flex: 1;
+    min-width: 180px;
     min-height: auto;
     cursor: pointer;
 }
 
 .char-item h3 {
     margin-top: 0;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     font-size: 1.2rem;
     color: #ff6666;
 }
 
-.char-item p {
-    font-size: 0.9rem;
-    line-height: 1.6;
-    text-align: left;
-}
-
-.char-item:hover {
-    transform: translateY(-10px) scale(1.03);
-    box-shadow: 0 10px 30px rgba(255, 0, 0, 0.3), 0 2px 20px #ff1744;
+.char-item:hover .content-box {
+    transform: translateY(-5px);
     border-color: #fff;
-    background: rgba(70, 0, 10, 0.73);
-}
-
-.ascii-message-area {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    margin: 60px 0 80px 0;
-    padding: 0 15px;
-}
-
-.ascii-box {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    max-width: 370px;
-    font-size: 1rem;
-    font-family: 'Oswald', 'Bebas Neue', 'Consolas', 'Menlo', monospace;
-    margin: 20px auto;
-    transition: filter 0.35s cubic-bezier(0.22, 0.68, 0.54, 1.09);
-    background: none;
-}
-
-.ascii-border {
-    margin: 0;
-    padding: 0;
-    background: none;
-    border: none;
-    color: #fff;
-    letter-spacing: 0.5px;
-    user-select: none;
-    font-family: inherit;
-    width: 100%;
-    overflow-x: auto;
-    white-space: pre;
-    font-size: 0.9rem;
-}
-
-.ascii-border-top,
-.ascii-border-bottom {
-    text-align: left;
-}
-
-.ascii-border-middle {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    width: 100%;
-    background: none;
-    border: none;
-    padding: 0;
-    gap: 5px;
-}
-
-.ascii-border-side {
-    color: #fff;
-    font-weight: bold;
-    font-size: 1.1rem;
-    flex-shrink: 0;
-    transition: color 0.25s;
-}
-
-.ascii-input {
-    background: none;
-    border: none;
-    outline: none;
-    color: #fff;
-    font-family: inherit;
-    font-size: 1rem;
-    flex: 1;
-    padding: 8px 5px;
-    letter-spacing: 0.05em;
-    box-shadow: none;
-    transition: box-shadow 0.4s cubic-bezier(0.22, 0.68, 0.54, 1.09), color 0.27s;
-    text-align: left;
-}
-
-.ascii-input::placeholder {
-    color: #999;
-}
-
-.ascii-box:focus-within,
-.ascii-box:hover {
-    filter: drop-shadow(0 0 12px #fff) drop-shadow(0 0 24px #ff22c0) drop-shadow(0 0 36px #03fbd5);
-}
-
-.ascii-box:focus-within .ascii-input,
-.ascii-box:hover .ascii-input {
-    color: #ff22c0;
-    box-shadow: 0 0 12px 2px #fff, 0 0 24px 4px #ff22c0, 0 0 40px 6px #03fbd5;
-}
-
-.ascii-box:focus-within .ascii-border-side,
-.ascii-box:hover .ascii-border-side {
-    color: #ff22c0;
+    background: rgba(70, 0, 10, 0.5);
 }
 
 footer {
@@ -310,172 +246,147 @@ footer {
     z-index: 1;
 }
 
-/* ========== モーダル ========== */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    animation: fadeIn 0.3s ease-out;
-    overflow-y: auto;
+/* ========== 試し読みページ ========== */
+.trial-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
 }
 
-.modal.show {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-.modal-content {
-    background: linear-gradient(135deg, #1a1a1a 0%, #2d1a1a 100%);
-    border: 3px solid #ff1744;
-    border-radius: 12px;
-    width: 90%;
-    max-width: 700px;
-    max-height: 85vh;
-    overflow-y: auto;
-    box-shadow: 0 0 40px rgba(255, 23, 68, 0.6), 0 0 60px rgba(3, 251, 213, 0.3);
-    animation: slideUp 0.4s cubic-bezier(0.2, 1.5, 0.5, 1);
+.trial-header {
+    text-align: center;
+    padding: 40px 20px 30px 20px;
+    margin-bottom: 30px;
+    border-bottom: 3px solid #ff1744;
     position: relative;
 }
 
-@keyframes slideUp {
-    from {
-        opacity: 0;
-        transform: translateY(50px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.modal-close {
+.back-btn {
     position: absolute;
-    right: 15px;
-    top: 15px;
-    background: none;
-    border: none;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
     color: #ff1744;
-    font-size: 2rem;
-    cursor: pointer;
-    transition: all 0.2s;
-    z-index: 10;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: bold;
+    transition: all 0.3s;
 }
 
-.modal-close:hover {
+.back-btn:hover {
     color: #fff;
-    transform: rotate(90deg);
-}
-
-.modal-header {
-    border-bottom: 3px solid #ff1744;
-    padding: 30px 30px 20px 30px;
-    background: rgba(255, 23, 68, 0.1);
-}
-
-.modal-header h2 {
-    border: none;
-    color: #ff1744;
     text-shadow: 0 0 10px #ff1744;
-    margin: 0 0 10px 0;
-    font-size: 2rem;
-    letter-spacing: 0.1em;
-    padding-left: 0;
 }
 
-.episode-title {
+.trial-header h1 {
+    font-family: 'Oswald', 'Bebas Neue', Impact, Arial, sans-serif;
+    font-size: 2.2rem;
+    color: #ff1744;
+    text-shadow: 0 0 15px #ff1744;
+    margin: 0 0 10px 0;
+    letter-spacing: 0.1em;
+}
+
+.trial-subtitle {
     color: #ccc;
     font-style: italic;
     margin: 0;
     font-size: 1.1rem;
 }
 
-.modal-body {
+.trial-content {
+    background: rgba(20, 10, 10, 0.8);
+    border: 2px solid #ff1744;
+    border-radius: 8px;
     padding: 30px;
-    max-height: 50vh;
-    overflow-y: auto;
+    box-shadow: 0 0 30px rgba(255, 23, 68, 0.4), inset 0 0 20px rgba(255, 23, 68, 0.1);
+}
+
+.manga-viewer {
+    line-height: 2;
+}
+
+.manga-viewer .content-box {
+    margin-bottom: 25px;
 }
 
 .manga-viewer h3 {
     color: #ff1744;
-    font-size: 1.3rem;
-    margin-top: 30px;
+    font-size: 1.4rem;
+    margin-top: 0;
     margin-bottom: 15px;
     border-left: 4px solid #ff1744;
     padding-left: 12px;
-}
-
-.manga-viewer h3:first-child {
-    margin-top: 0;
+    letter-spacing: 0.05em;
 }
 
 .manga-viewer p {
     text-align: left;
-    line-height: 2;
-    margin-bottom: 15px;
     font-size: 1rem;
+    margin-bottom: 15px;
     color: #e0e0e0;
 }
 
-.modal-footer {
-    border-top: 3px solid #ff1744;
-    padding: 20px 30px;
+.trial-end {
     text-align: center;
-    background: rgba(255, 23, 68, 0.05);
+    padding: 30px 0;
+    border-top: 2px solid #ff1744;
+    margin-top: 30px;
 }
 
-.trial-notice {
+.trial-end p {
     color: #ff9800;
     font-style: italic;
-    font-size: 0.9rem;
-    margin-bottom: 15px;
+    font-size: 0.95rem;
+    margin-bottom: 20px;
 }
 
-.btn-primary {
-    background: linear-gradient(135deg, #ff1744 0%, #ff5252 100%);
+.purchase-btn {
+    display: inline-block;
+    background: linear-gradient(135deg, #ff1744 0%, #c41c3b 100%);
     color: #fff;
-    border: 2px solid #fff;
-    padding: 12px 28px;
-    font-size: 1rem;
+    padding: 14px 40px;
+    font-size: 1.1rem;
     font-weight: bold;
-    border-radius: 6px;
+    text-decoration: none;
+    border-radius: 0;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.2, 1.5, 0.5, 1);
-    margin-right: 10px;
-    margin-bottom: 10px;
+    letter-spacing: 0.1em;
+    box-shadow: 0 0 20px rgba(255, 23, 68, 0.5);
+    margin: 10px 5px;
+    border: 1px solid #ff5252;
     font-family: 'Oswald', 'Bebas Neue', Arial, sans-serif;
 }
 
-.btn-primary:hover {
+.purchase-btn:hover {
     transform: translateY(-3px);
-    box-shadow: 0 0 20px rgba(255, 23, 68, 0.8), 0 0 30px rgba(3, 251, 213, 0.4);
+    box-shadow: 0 0 40px rgba(255, 23, 68, 0.8), 0 0 60px rgba(3, 251, 213, 0.3);
+    border-color: #03fbd5;
+    text-shadow: 0 0 10px rgba(3, 251, 213, 0.8);
 }
 
-.btn-secondary {
-    background: transparent;
+.back-home {
+    display: inline-block;
     color: #ccc;
-    border: 2px solid #ccc;
-    padding: 10px 24px;
-    font-size: 1rem;
-    border-radius: 6px;
-    cursor: pointer;
+    text-decoration: none;
+    padding: 10px 20px;
+    margin: 10px 5px;
+    border: 1px solid #ccc;
+    border-radius: 0;
     transition: all 0.3s;
     font-family: 'Oswald', 'Bebas Neue', Arial, sans-serif;
+    font-weight: bold;
+    letter-spacing: 0.05em;
 }
 
-.btn-secondary:hover {
+.back-home:hover {
     color: #fff;
     border-color: #fff;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
 }
 
 /* ========== スマホ対応 ========== */
@@ -501,9 +412,9 @@ footer {
         margin-bottom: 20px;
     }
 
-    .trial-btn {
-        padding: 10px 24px;
-        font-size: 0.95rem;
+    .trial-link {
+        padding: 12px 32px;
+        font-size: 1rem;
         margin-top: 15px;
     }
 
@@ -512,59 +423,38 @@ footer {
         margin-top: 30px;
     }
 
+    .content-box {
+        padding: 15px;
+    }
+
     .char-list {
         gap: 15px;
-        margin-top: 15px;
     }
 
     .char-item {
         min-width: 140px;
-        padding: 1rem 0.8rem;
     }
 
     .char-item h3 {
         font-size: 1.1rem;
-        margin-bottom: 8px;
+        margin-bottom: 10px;
     }
 
-    .char-item p {
-        font-size: 0.85rem;
-        line-height: 1.5;
+    .trial-container {
+        padding: 15px;
     }
 
-    .ascii-box {
-        font-size: 0.95rem;
+    .trial-header {
+        padding: 30px 15px;
     }
 
-    .ascii-border {
-        font-size: 0.8rem;
+    .trial-header h1 {
+        font-size: 1.8rem;
     }
 
-    .ascii-input {
-        font-size: 0.9rem;
-    }
-
-    .modal-content {
-        width: 95%;
-        max-height: 90vh;
-    }
-
-    .modal-header {
-        padding: 20px 20px 15px 20px;
-    }
-
-    .modal-header h2 {
-        font-size: 1.5rem;
-        margin-bottom: 8px;
-    }
-
-    .episode-title {
-        font-size: 0.95rem;
-    }
-
-    .modal-body {
+    .trial-content {
         padding: 20px;
-        max-height: 55vh;
+        border-radius: 6px;
     }
 
     .manga-viewer p {
@@ -572,15 +462,11 @@ footer {
         line-height: 1.8;
     }
 
-    .modal-footer {
-        padding: 15px 20px;
-    }
-
-    .btn-primary,
-    .btn-secondary {
-        padding: 10px 16px;
-        font-size: 0.9rem;
-        margin-right: 5px;
+    .purchase-btn,
+    .back-home {
+        padding: 11px 28px;
+        font-size: 0.95rem;
+        margin: 8px 3px;
     }
 }
 
@@ -588,7 +474,6 @@ footer {
     header {
         min-height: 70vh;
         padding: 50px 10px 30px 10px;
-        border-bottom: 3px solid #8b0000;
     }
 
     .logo {
@@ -599,20 +484,17 @@ footer {
     .hero-title {
         font-size: 1.5rem;
         margin: 15px 0 8px 0;
-        letter-spacing: 0.05em;
     }
 
     .tagline {
         font-size: 0.75rem;
-        line-height: 1.4;
         padding: 0 5px;
         margin-bottom: 15px;
     }
 
-    .trial-btn {
-        padding: 8px 16px;
-        font-size: 0.8rem;
-        margin-top: 10px;
+    .trial-link {
+        padding: 10px 24px;
+        font-size: 0.9rem;
     }
 
     main {
@@ -622,127 +504,92 @@ footer {
 
     h2 {
         font-size: 1.3rem;
-        padding-left: 12px;
         margin-top: 25px;
         margin-bottom: 15px;
-        border-left: 3px solid #ff0000;
     }
 
-    section {
-        margin-bottom: 30px;
-    }
-
-    p {
-        font-size: 0.9rem;
-        line-height: 1.6;
+    .content-box {
+        padding: 12px;
+        margin: 12px 0;
+        border-radius: 6px;
     }
 
     .char-list {
         gap: 10px;
         flex-direction: column;
-        margin-top: 10px;
     }
 
     .char-item {
         width: 100%;
         min-width: unset;
-        padding: 0.9rem 0.8rem;
     }
 
     .char-item h3 {
         font-size: 1rem;
-        margin-top: 0;
         margin-bottom: 8px;
     }
 
-    .char-item p {
-        font-size: 0.8rem;
-        line-height: 1.5;
-        text-align: left;
+    .trial-container {
+        padding: 10px;
     }
 
-    .ascii-message-area {
-        margin: 50px 0 60px 0;
-        padding: 0 10px;
+    .trial-header {
+        padding: 20px 10px;
+        margin-bottom: 20px;
     }
 
-    .ascii-box {
-        max-width: 100%;
+    .back-btn {
+        left: 0;
+        font-size: 1rem;
+    }
+
+    .trial-header h1 {
+        font-size: 1.4rem;
+        margin-top: 10px;
+    }
+
+    .trial-subtitle {
         font-size: 0.9rem;
-        margin: 15px auto;
     }
 
-    .ascii-border {
-        font-size: 0.75rem;
-        letter-spacing: 0.3px;
-    }
-
-    .ascii-input {
-        font-size: 0.85rem;
-        padding: 6px 3px;
-    }
-
-    .modal-content {
-        width: 98%;
-        max-height: 95vh;
-        border-radius: 8px;
-    }
-
-    .modal-header {
-        padding: 15px 15px 12px 15px;
-    }
-
-    .modal-header h2 {
-        font-size: 1.2rem;
-        margin-bottom: 6px;
-    }
-
-    .episode-title {
-        font-size: 0.85rem;
-    }
-
-    .modal-close {
-        right: 10px;
-        top: 10px;
-        font-size: 1.5rem;
-    }
-
-    .modal-body {
+    .trial-content {
         padding: 15px;
-        max-height: 60vh;
+        border-radius: 6px;
+    }
+
+    .manga-viewer .content-box {
+        padding: 10px;
+        margin-bottom: 15px;
     }
 
     .manga-viewer h3 {
         font-size: 1.1rem;
-        margin-top: 20px;
-        margin-bottom: 12px;
-        padding-left: 10px;
-        border-left: 3px solid #ff1744;
+        margin-bottom: 10px;
     }
 
     .manga-viewer p {
         font-size: 0.9rem;
         line-height: 1.7;
-        margin-bottom: 12px;
-        text-align: left;
-    }
-
-    .modal-footer {
-        padding: 12px 15px;
-    }
-
-    .trial-notice {
-        font-size: 0.8rem;
         margin-bottom: 10px;
     }
 
-    .btn-primary,
-    .btn-secondary {
+    .trial-end {
+        padding: 20px 0;
+        margin-top: 20px;
+    }
+
+    .trial-end p {
+        font-size: 0.85rem;
+        margin-bottom: 15px;
+    }
+
+    .purchase-btn,
+    .back-home {
         display: block;
         width: 100%;
-        padding: 10px 0;
+        padding: 11px 0;
+        font-size: 0.9rem;
         margin: 8px 0;
-        font-size: 0.85rem;
     }
 
     footer {
@@ -760,27 +607,12 @@ footer {
         font-size: 1.1rem;
     }
 
-    .char-item {
-        padding: 0.8rem 0.6rem;
-    }
-
-    .char-item h3 {
-        font-size: 0.9rem;
-    }
-
-    .char-item p {
-        font-size: 0.75rem;
-    }
-
-    .modal-header h2 {
-        font-size: 1rem;
-    }
-
-    .manga-viewer h3 {
-        font-size: 0.95rem;
+    .trial-header h1 {
+        font-size: 1.2rem;
     }
 
     .manga-viewer p {
         font-size: 0.85rem;
+        line-height: 1.6;
     }
 }
